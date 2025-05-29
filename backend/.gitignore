@@ -1,0 +1,8 @@
+.vs
+.vscode
+Server/obj/
+Server/bin/
+git 
+
+.idea
+.idea/*
