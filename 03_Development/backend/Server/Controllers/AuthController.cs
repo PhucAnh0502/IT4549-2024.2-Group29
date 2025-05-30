@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Server.DTOs.Auth;
 using Server.Enums.Auth;
 using Server.Interfaces.IServices;
+using Server.Interfaces.IUltilities;
 using Server.Utils;
 
 namespace Server.Controllers
@@ -12,9 +13,9 @@ namespace Server.Controllers
     public class AuthController : ControllerBase
     {
         private readonly IAuthService _authService;
-        private readonly JwtUtils _jwtUtils;
+        private readonly IJwtUtils _jwtUtils;
 
-        public AuthController(IAuthService authService, JwtUtils jwtUtils)
+        public AuthController(IAuthService authService, IJwtUtils jwtUtils)
         {
             _authService = authService;
             _jwtUtils = jwtUtils;
