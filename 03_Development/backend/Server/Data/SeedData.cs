@@ -23,18 +23,18 @@ namespace Server.Data
 
             // Cấu hình số lượng người dùng cho từng vai trò
             var predefinedRoles = new List<(string Role, int Count)>
-    {
-        ("Admin", 1),
-        ("Manager", 5), // 5 managers
-        ("Trainer", 14),
-        ("Member", 30)  // Các thành viên còn lại
-    };
+            {
+                ("Admin", 1),
+                ("Manager", 5), // 5 managers
+                ("Trainer", 14),
+                ("Member", 30) // Các thành viên còn lại
+            };
 
             // Mảng danh sách departments để phân công cho các manager
             var departments = new List<string>
-    {
-        "HR", "Finance", "Marketing", "Sales", "Support"
-    };
+            {
+                "HR", "Finance", "Marketing", "Sales", "Support"
+            };
 
             int userIndex = 1;
 
@@ -77,7 +77,7 @@ namespace Server.Data
                             DateOfBirth = GenerateRandomDateOfBirth(),
                             CurrentBalance = 0,
                             AccountId = accountId,
-                            Department = departments[i]  // Gán department cho manager
+                            Department = departments[i] // Gán department cho manager
                         },
                         "Trainer" => new TrainerModel
                         {
@@ -176,7 +176,8 @@ namespace Server.Data
                         DeviceType = deviceType.ToString(),
                         Status = "Available",
                         RoomId = room.Id,
-                        DeviceCode = $"{deviceType.ToString().Substring(0, 3).ToUpper()}-{Guid.NewGuid().ToString()[..8]}",
+                        DeviceCode =
+                            $"{deviceType.ToString().Substring(0, 3).ToUpper()}-{Guid.NewGuid().ToString()[..8]}",
                         Manufacturer = manufacturer + " Manufacturer",
                         DateOfPurchase = DateTime.Now.AddYears(-1),
                         WarrantyPeriod = (int)TimeSpan.FromDays(30 * 2).TotalDays, // 2 months warranty
@@ -185,6 +186,7 @@ namespace Server.Data
                     });
                 }
             }
+
             return devices;
         }
 
@@ -198,12 +200,12 @@ namespace Server.Data
             var courses = new List<CourseModel>();
 
             var trainingDayOptions = new List<List<DayOfWeek>>
-                {
-                    new() { DayOfWeek.Monday, DayOfWeek.Wednesday, DayOfWeek.Friday },
-                    new() { DayOfWeek.Tuesday, DayOfWeek.Thursday },
-                    new() { DayOfWeek.Saturday, DayOfWeek.Sunday },
-                    new() { DayOfWeek.Monday, DayOfWeek.Thursday }
-                };
+            {
+                new() { DayOfWeek.Monday, DayOfWeek.Wednesday, DayOfWeek.Friday },
+                new() { DayOfWeek.Tuesday, DayOfWeek.Thursday },
+                new() { DayOfWeek.Saturday, DayOfWeek.Sunday },
+                new() { DayOfWeek.Monday, DayOfWeek.Thursday }
+            };
 
             for (int i = 1; i <= 30; i++)
             {
@@ -249,7 +251,8 @@ namespace Server.Data
 
         private static string GetRandomManufacturer()
         {
-            string[] manufacturers = {
+            string[] manufacturers =
+            {
                 "Technogym", "Life Fitness", "Precor", "Matrix", "Cybex",
                 "Star Trac", "Nautilus", "Hammer Strength", "Keiser", "Octane"
             };
@@ -258,7 +261,8 @@ namespace Server.Data
 
         private static string GetRandomFirstName()
         {
-            string[] firstNames = {
+            string[] firstNames =
+            {
                 "Minh", "Anh", "Hùng", "Lan", "Hoa",
                 "Tuấn", "Linh", "Đức", "Mai", "Trang",
                 "Quân", "Nga", "Khoa", "Hương", "Trung"
@@ -268,7 +272,8 @@ namespace Server.Data
 
         private static string GetRandomLastName()
         {
-            string[] lastNames = {
+            string[] lastNames =
+            {
                 "Nguyễn", "Trần", "Lê", "Phạm", "Hoàng",
                 "Huỳnh", "Phan", "Võ", "Đặng", "Bùi"
             };
@@ -277,7 +282,8 @@ namespace Server.Data
 
         private static string GetRandomSpecialization()
         {
-            string[] specializations = {
+            string[] specializations =
+            {
                 "Cardio",
                 "Strength",
                 "CrossFit",
@@ -296,7 +302,8 @@ namespace Server.Data
 
         private static string GetRandomDepartment()
         {
-            string[] departments = {
+            string[] departments =
+            {
                 "HR",
                 "Finance",
                 "Equipment",

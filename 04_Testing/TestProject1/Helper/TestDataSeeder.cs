@@ -1,4 +1,6 @@
-﻿using Server.Models.Course;
+﻿using Server.Interfaces.IServices;
+using Server.Models.Account;
+using Server.Models.Course;
 using Server.Models.Device;
 using Server.Models.Room;
 using Server.Models.User;
@@ -7,6 +9,35 @@ namespace TestProject1.Helper;
 
 public class TestDataSeeder
 {
+    private readonly IBcryptService _bcryptService;
+
+    public TestDataSeeder(IBcryptService bcryptService)
+    {
+        _bcryptService = bcryptService;
+    }
+    public static UserBaseModel SeedUser()
+    {
+        var mockUser = new UserBaseModel
+        {
+            Id = Guid.NewGuid(),
+            FirstName = "Alice",
+            LastName = "Smith",
+            DateOfBirth = new DateTime(1990, 5, 15),
+            CurrentBalance = 1000.50f,
+            AccountId = Guid.NewGuid(),
+            Account = new AccountModel
+            {
+                Id = Guid.NewGuid(),
+                Email = "alice.smith@example.com",
+                Password = "123456",
+                Role = "Member",
+                IsActivated = true
+                // Gán các property required khác của AccountModel nếu có
+            }
+        };
+        
+        return mockUser;
+    }
     public static DeviceModel SeedDevice()
     {
         var room = new RoomModel
