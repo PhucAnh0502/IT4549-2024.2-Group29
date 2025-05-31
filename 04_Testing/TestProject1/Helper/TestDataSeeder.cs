@@ -7,6 +7,36 @@ namespace TestProject1.Helper;
 
 public class TestDataSeeder
 {
+    public static DeviceModel SeedDevice()
+    {
+        var room = new RoomModel
+        {
+            Id = Guid.NewGuid(),
+            Name = "Test Room",
+            RoomCode = "R101",
+            RoomType = "Lecture",
+            Capacity = 30,
+            Status = "Available",
+            Devices = new List<DeviceModel>()
+        };
+        
+        var device1 = new DeviceModel
+        {
+            Id = Guid.NewGuid(),
+            DeviceCode = "DEV001",
+            Name = "Projector X100",
+            DeviceType = "Projector",
+            Manufacturer = "Epson",
+            DateOfPurchase = new DateTime(2021, 5, 1),
+            WarrantyPeriod = 24,
+            RentalFee = 100f,
+            LastMaintenance = new DateTime(2023, 1, 15),
+            Status = "Working",
+            RoomId = room.Id,
+            Room = room
+        };
+        return device1;
+    }
     public static CourseModel SeedCourse()
     {
         var room = new RoomModel
