@@ -10,6 +10,8 @@ using Server.Interfaces.IServices;
 using Server.Interfaces.IUltilities;
 using Server.Models.Account;
 using Server.Models.User;
+using Newtonsoft.Json.Linq;
+
 
 namespace TestProject1.Controllers;
 
@@ -27,8 +29,7 @@ public class AuthControllerTest
         _controller = new AuthController(_authServiceMock.Object, _jwtUtilsMock.Object);
     }
     
-    
-     [Test]
+    [Test]
     public async Task Login_ReturnsOk_WithTokenAndAccount()
     {
         // Arrange
@@ -91,7 +92,8 @@ public class AuthControllerTest
         token.Should().Be("fake-jwt");
         account.Should().BeEquivalentTo(fakeAccount);
     }
-    
+
+
     // [Test]
     // public async Task Register_ReturnsOk_WhenSuccessful()
     // {
@@ -106,19 +108,24 @@ public class AuthControllerTest
     //     ((OkObjectResult)result).Value.Should().BeEquivalentTo(new { message = "Register successful" });
     // }
     
-    [Test]
+   [Test]
     public async Task RequestActive_ReturnsActiveCode()
     {
         var dto = new RequestActiveDTO { Email = "test@example.com", Password = "pass" };
+
         _authServiceMock.Setup(x => x.GetActiveCode(dto.Email, dto.Password))
             .ReturnsAsync("ABC123");
 
         var result = await _controller.RequestActive(dto);
 
         result.Should().BeOfType<OkObjectResult>();
-        dynamic value = ((OkObjectResult)result).Value!;
-        ((string)value.activeCode).Should().Be("ABC123");
+        var okResult = result as OkObjectResult;
+        var json = JObject.FromObject(okResult!.Value!);
+
+        json["activeCode"]!.ToString().Should().Be("ABC123");
     }
+
+
     
     [Test]
     public async Task ActivateAccount_ReturnsOk_WhenSuccessful()
@@ -171,9 +178,13 @@ public class AuthControllerTest
         var result = await _controller.RequestForgotPassword(dto);
 
         result.Should().BeOfType<OkObjectResult>();
-        dynamic value = ((OkObjectResult)result).Value!;
-        ((string)value.resetCode).Should().Be("RESET123");
+        var okResult = result as OkObjectResult;
+        var json = JObject.FromObject(okResult!.Value!);
+
+        json["resetCode"]!.ToString().Should().Be("RESET123");
     }
+
+
     
     [Test]
     public async Task ResetPassword_ReturnsOk_WhenSuccessful()

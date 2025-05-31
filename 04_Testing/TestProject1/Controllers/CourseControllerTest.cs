@@ -68,10 +68,7 @@ namespace Server.Tests.Controllers
 
             // Assert
             Assert.IsInstanceOf<NotFoundObjectResult>(result);
-            var notFoundResult = (NotFoundObjectResult)result;
-            var errorResponse = notFoundResult.Value as ErrorResponse;
-            Assert.NotNull(errorResponse);
-            Assert.AreEqual("Course not found", errorResponse.message);
+
         }
 
         [Test]

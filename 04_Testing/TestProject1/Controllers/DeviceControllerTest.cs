@@ -73,30 +73,37 @@ namespace Server.Tests.Controllers
         }
 
         [Test]
-        public async Task CreateDevice_ReturnsOk_WhenDepartmentIsEquipment()
-        {
-            var addDeviceDto = new AddDeviceDTO
-            {
-                Name = "TestEquipment",
-                DeviceType = "Treadmill",
-                Manufacturer = "SoICT",
-                DateOfPurchase = DateTime.Now,
-                WarrantyPeriod = 69,
-                RentalFee = 420,
-                RoomCode = "10"
-            };
-        
-            _mockDeviceService.Setup(s => s.AddDeviceAsync(addDeviceDto))
-                .Returns(Task.CompletedTask);
-        
-            var result = await _controller.CreateDevice(addDeviceDto);
-        
-            Assert.IsInstanceOf<OkObjectResult>(result);
-            var okResult = (OkObjectResult)result;
-            var resultValue = okResult.Value as IDictionary<string, object>;
-            Assert.IsNotNull(resultValue);
-            Assert.AreEqual("Device created successfully", resultValue["message"]);
-        }
+public async Task CreateDevice_ReturnsOk_WhenDepartmentIsEquipment()
+{
+    var addDeviceDto = new AddDeviceDTO
+    {
+        Name = "TestEquipment",
+        DeviceType = "Treadmill",
+        Manufacturer = "SoICT",
+        DateOfPurchase = DateTime.Now,
+        WarrantyPeriod = 69,
+        RentalFee = 420,
+        RoomCode = "10"
+    };
+
+    _mockDeviceService.Setup(s => s.AddDeviceAsync(addDeviceDto))
+        .Returns(Task.CompletedTask);
+
+    var result = await _controller.CreateDevice(addDeviceDto);
+
+    Assert.IsInstanceOf<OkObjectResult>(result);
+    var okResult = (OkObjectResult)result;
+
+    Assert.IsNotNull(okResult.Value);
+
+    var value = okResult.Value; // use reflection to access message
+    var messageProperty = value.GetType().GetProperty("message");
+    Assert.IsNotNull(messageProperty, "Response does not contain a 'message' property");
+
+    var message = messageProperty.GetValue(value)?.ToString();
+    Assert.AreEqual("Device created successfully", message);
+}
+
 
         [Test]
         public async Task CreateDevice_ReturnsForbid_WhenDepartmentIsNotEquipment()
