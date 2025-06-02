@@ -11,13 +11,13 @@ using Server.Models.User;
 
 namespace Server.Services
 {
-    public class AuthService(DatabaseContext context) : IAuthService
+    public class AuthService : IAuthService
     {
 
-        private readonly DatabaseContext _context = context;
+        private readonly DatabaseContext _context;
         private readonly IBcryptService _bcryptService;
 
-        public AuthService(DatabaseContext context, IBcryptService bcryptService) : this(context)
+        public AuthService(DatabaseContext context, IBcryptService bcryptService) 
         {
             _context = context;
             _bcryptService = bcryptService;
