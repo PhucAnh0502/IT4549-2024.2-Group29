@@ -18,6 +18,7 @@ public class AuthControllerTest
     private Mock<IAuthService> _authServiceMock;
     private Mock<IJwtUtils> _jwtUtilsMock;
     private Mock<IActivationService> _activationServiceMock;
+    private Mock<IPasswordService> _passwordServiceMock;
     private AuthController _controller;
     
     [SetUp]
@@ -25,7 +26,7 @@ public class AuthControllerTest
     {
         _authServiceMock = new Mock<IAuthService>();
         _jwtUtilsMock = new Mock<IJwtUtils>();
-        _controller = new AuthController(_authServiceMock.Object, _jwtUtilsMock.Object, _activationServiceMock.Object);
+        _controller = new AuthController(_authServiceMock.Object, _jwtUtilsMock.Object, _activationServiceMock.Object, _passwordServiceMock.Object);
     }
     
     
@@ -152,7 +153,7 @@ public class AuthControllerTest
             HttpContext = new DefaultHttpContext { User = claims }
         };
 
-        _authServiceMock.Setup(x => x.ChangePassword(userId, dto.OldPassword, dto.NewPassword))
+        _passwordServiceMock.Setup(x => x.ChangePassword(userId, dto.OldPassword, dto.NewPassword))
             .Returns(Task.CompletedTask);
 
         var result = await _controller.ChangePassword(dto);
@@ -166,7 +167,7 @@ public class AuthControllerTest
     {
         var dto = new RequestResetDTO { Email = "test@example.com" };
 
-        _authServiceMock.Setup(x => x.RequestForgotPassword(dto.Email))
+        _passwordServiceMock.Setup(x => x.RequestForgotPassword(dto.Email))
             .ReturnsAsync("RESET123");
 
         var result = await _controller.RequestForgotPassword(dto);
@@ -186,7 +187,7 @@ public class AuthControllerTest
             ResetCode = "RESET123"
         };
 
-        _authServiceMock.Setup(x => x.ResetPassword(dto.NewPassword, dto.ConfirmPassword, dto.ResetCode))
+        _passwordServiceMock.Setup(x => x.ResetPassword(dto.NewPassword, dto.ConfirmPassword, dto.ResetCode))
             .Returns(Task.CompletedTask);
 
         var result = await _controller.ResetPassword(dto);

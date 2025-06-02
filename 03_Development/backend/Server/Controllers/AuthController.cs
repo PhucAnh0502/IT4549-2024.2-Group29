@@ -15,11 +15,13 @@ namespace Server.Controllers
         private readonly IAuthService _authService;
         private readonly IJwtUtils _jwtUtils;
         private readonly IActivationService _activationService;
-        public AuthController(IAuthService authService, IJwtUtils jwtUtils, IActivationService activationService)
+        private readonly IPasswordService _passwordService;
+        public AuthController(IAuthService authService, IJwtUtils jwtUtils, IActivationService activationService, IPasswordService passwordService)
         {
             _authService = authService;
             _jwtUtils = jwtUtils;
             _activationService = activationService;
+            _passwordService = passwordService;
         }
 
         [HttpPost("login")]
@@ -79,7 +81,7 @@ namespace Server.Controllers
             if (!Guid.TryParse(id, out var accountId))
                 return BadRequest(new { message = "Invalid user identifier" });
 
-            await _authService.ChangePassword(accountId, changePasswordInfor.OldPassword, changePasswordInfor.NewPassword);
+            await _passwordService.ChangePassword(accountId, changePasswordInfor.OldPassword, changePasswordInfor.NewPassword);
             return Ok(new { message = "Password changed successfully" });
         }
 
@@ -87,14 +89,14 @@ namespace Server.Controllers
         public async Task<IActionResult> RequestForgotPassword([FromBody] RequestResetDTO requestResetInfor)
         {
             var email = requestResetInfor.Email;
-            var resetCode = await _authService.RequestForgotPassword(email);
+            var resetCode = await _passwordService.RequestForgotPassword(email);
             return Ok(new { resetCode });
         }
 
         [HttpPost("reset-password")]
         public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordDTO resetPasswordInfor)
         {
-            await _authService.ResetPassword(resetPasswordInfor.NewPassword, resetPasswordInfor.ConfirmPassword, resetPasswordInfor.ResetCode);
+            await _passwordService.ResetPassword(resetPasswordInfor.NewPassword, resetPasswordInfor.ConfirmPassword, resetPasswordInfor.ResetCode);
             return Ok(new { message = "Password reset successfully" });
         }
     }
