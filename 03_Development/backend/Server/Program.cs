@@ -33,6 +33,8 @@ builder.Services.AddScoped<IDeviceService, DeviceService>();
 builder.Services.AddScoped<ICourseService, CourseService>();
 builder.Services.AddScoped<ITrainingRecordService, TrainingRecordService>();
 builder.Services.AddScoped<IReportService, ReportService>();
+builder.Services.AddScoped<IActivationService, ActivationService>();
+builder.Services.AddScoped<IPasswordService,PasswordService>();
 builder.Services.AddSingleton<JwtUtils>(provider =>
 {
     var configuration = provider.GetRequiredService<IConfiguration>();
