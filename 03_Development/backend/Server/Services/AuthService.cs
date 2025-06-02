@@ -15,7 +15,14 @@ namespace Server.Services
     {
 
         private readonly DatabaseContext _context = context;
-        private readonly BcryptService _bcryptService = new();
+        private readonly IBcryptService _bcryptService;
+
+        public AuthService(DatabaseContext context, IBcryptService bcryptService) : this(context)
+        {
+            _context = context;
+            _bcryptService = bcryptService;
+        }   //Refractor code to match SOLID convention, 
+            //For this case it is using interface instead of actual class
 
         //Service for authentication
         public async Task<GetAccountDTO> Login(string email, string password)
