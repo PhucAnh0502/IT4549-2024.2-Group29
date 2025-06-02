@@ -14,11 +14,12 @@ namespace Server.Controllers
     {
         private readonly IAuthService _authService;
         private readonly IJwtUtils _jwtUtils;
-
-        public AuthController(IAuthService authService, IJwtUtils jwtUtils)
+        private readonly IActivationService _activationService;
+        public AuthController(IAuthService authService, IJwtUtils jwtUtils, IActivationService activationService)
         {
             _authService = authService;
             _jwtUtils = jwtUtils;
+            _activationService = activationService;
         }
 
         [HttpPost("login")]
@@ -58,7 +59,7 @@ namespace Server.Controllers
         [HttpPost("request-active")]
         public async Task<IActionResult> RequestActive([FromBody] RequestActiveDTO requestActiveInfor)
         {
-            var activeCode = await _authService.GetActiveCode(requestActiveInfor.Email, requestActiveInfor.Password);
+            var activeCode = await _activationService.GetActiveCode(requestActiveInfor.Email, requestActiveInfor.Password);
             return Ok(new { activeCode });
 
         }
@@ -66,7 +67,7 @@ namespace Server.Controllers
         [HttpPost("activate-account")]
         public async Task<IActionResult> ActivateAccount([FromBody] ActiveAccountDTO activateAccountInfor)
         {
-            await _authService.ActivateAccount(activateAccountInfor.ActiveCode);
+            await _activationService.ActivateAccount(activateAccountInfor.ActiveCode);
             return Ok(new { message = "Account activated successfully" });
         }
 

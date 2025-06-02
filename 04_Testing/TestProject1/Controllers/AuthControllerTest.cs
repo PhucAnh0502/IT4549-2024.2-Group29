@@ -17,6 +17,7 @@ public class AuthControllerTest
 {
     private Mock<IAuthService> _authServiceMock;
     private Mock<IJwtUtils> _jwtUtilsMock;
+    private Mock<IActivationService> _activationServiceMock;
     private AuthController _controller;
     
     [SetUp]
@@ -24,7 +25,7 @@ public class AuthControllerTest
     {
         _authServiceMock = new Mock<IAuthService>();
         _jwtUtilsMock = new Mock<IJwtUtils>();
-        _controller = new AuthController(_authServiceMock.Object, _jwtUtilsMock.Object);
+        _controller = new AuthController(_authServiceMock.Object, _jwtUtilsMock.Object, _activationServiceMock.Object);
     }
     
     
@@ -110,7 +111,7 @@ public class AuthControllerTest
     public async Task RequestActive_ReturnsActiveCode()
     {
         var dto = new RequestActiveDTO { Email = "test@example.com", Password = "pass" };
-        _authServiceMock.Setup(x => x.GetActiveCode(dto.Email, dto.Password))
+        _activationServiceMock.Setup(x => x.GetActiveCode(dto.Email, dto.Password))
             .ReturnsAsync("ABC123");
 
         var result = await _controller.RequestActive(dto);
@@ -125,7 +126,7 @@ public class AuthControllerTest
     {
         var dto = new ActiveAccountDTO { ActiveCode = "ABC123" };
 
-        _authServiceMock.Setup(x => x.ActivateAccount(dto.ActiveCode))
+        _activationServiceMock.Setup(x => x.ActivateAccount(dto.ActiveCode))
             .Returns(Task.CompletedTask);
 
         var result = await _controller.ActivateAccount(dto);
