@@ -34,6 +34,7 @@ import MemberEquipmentList from "./components/memberDashboard/equipments/MemberE
 import MemberEquipmentBookings from "./components/memberDashboard/equipments/MemberEquipmentBookings";
 import FeedbackList from "./components/memberDashboard/feedback/FeedbackList";
 import FeedbackDetail from "./components/memberDashboard/feedback/FeedbackDetail";
+import AddFeedback from "./components/memberDashboard/feedback/AddFeedback";
 
 function App() {
   const [showLogin, setShowLogin] = useState(false);
@@ -327,7 +328,7 @@ function App() {
           {/*Add Feedback*/}
           <Route
             path="/member-dashboard/feedback/add-feedback"
-            element={<AddReport onClose={() => window.history.back()} />}
+            element={<AddFeedback onClose={() => window.history.back()} />}
           />
 
           {/*Feedback Info*/}
