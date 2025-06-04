@@ -11,6 +11,7 @@ using Server.Middlewares;
 using Server.Models.User;
 using Microsoft.AspNetCore.Mvc;
 using Server.Enums.ErrorCodes;
+using Server.Interfaces.IUltilities;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -35,7 +36,7 @@ builder.Services.AddScoped<ITrainingRecordService, TrainingRecordService>();
 builder.Services.AddScoped<IReportService, ReportService>();
 builder.Services.AddScoped<IActivationService, ActivationService>();
 builder.Services.AddScoped<IPasswordService,PasswordService>();
-builder.Services.AddSingleton<JwtUtils>(provider =>
+builder.Services.AddSingleton<IJwtUtils, JwtUtils>(provider =>
 {
     var configuration = provider.GetRequiredService<IConfiguration>();
     return new JwtUtils(configuration);
