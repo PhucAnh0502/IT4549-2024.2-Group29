@@ -320,7 +320,7 @@ function App() {
 
           {/*Report*/}
           <Route
-            path="/member-dashboard/feedback"
+            path="/member-dashboard/reports"
             element={<FeedbackList onClose={() => window.history.back()} />}
           />
 
