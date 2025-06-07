@@ -12,6 +12,7 @@ using Server.Models.User;
 using Microsoft.AspNetCore.Mvc;
 using Server.Enums.ErrorCodes;
 using Server.Interfaces.IUltilities;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,7 +22,9 @@ var key = Encoding.UTF8.GetBytes(jwtSettings["Key"] ?? throw new ArgumentNullExc
 builder.Services.AddControllers()
     .AddJsonOptions(options =>
     {
-        options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve;
+        options.JsonSerializerOptions.ReferenceHandler = null;
+        options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+        options.JsonSerializerOptions.WriteIndented = true;
     });
 builder.Services.AddDbContext<DatabaseContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
