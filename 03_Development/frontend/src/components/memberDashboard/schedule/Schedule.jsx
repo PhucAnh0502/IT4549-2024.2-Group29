@@ -50,10 +50,10 @@ const CalendarSchedule = () => {
 
         // Transform API response into a schedule object
         const scheduleData = {};
-        response.data.$values.forEach((item) => {
+        response.data.forEach((item) => {
           const startDate = new Date(item.course.startDate);
           const endDate = new Date(item.course.endDate);
-          const trainingDays = item.course.trainingDays.$values; // Array of training days (e.g., [1, 3, 5])
+          const trainingDays = item.course.trainingDays; // Array of training days (e.g., [1, 3, 5])
 
           // Iterate through each day from startDate to endDate
           for (let date = startDate; date <= endDate; date = addDays(date, 1)) {

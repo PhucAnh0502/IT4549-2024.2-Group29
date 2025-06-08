@@ -77,7 +77,7 @@ const EquipmentsList = () => {
         },
       });
       if (response) {
-        setEquipmentType(response.data.$values);
+        setEquipmentType(response.data);
       }
     } catch (err) {
       alert(err?.response?.data?.Message);

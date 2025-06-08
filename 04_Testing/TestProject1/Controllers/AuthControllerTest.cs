@@ -10,8 +10,6 @@ using Server.Interfaces.IServices;
 using Server.Interfaces.IUltilities;
 using Server.Models.Account;
 using Server.Models.User;
-using Newtonsoft.Json.Linq;
-
 
 namespace TestProject1.Controllers;
 
@@ -19,6 +17,8 @@ public class AuthControllerTest
 {
     private Mock<IAuthService> _authServiceMock;
     private Mock<IJwtUtils> _jwtUtilsMock;
+    private Mock<IActivationService> _activationServiceMock;
+    private Mock<IPasswordService> _passwordServiceMock;
     private AuthController _controller;
     
     [SetUp]
@@ -26,10 +26,11 @@ public class AuthControllerTest
     {
         _authServiceMock = new Mock<IAuthService>();
         _jwtUtilsMock = new Mock<IJwtUtils>();
-        _controller = new AuthController(_authServiceMock.Object, _jwtUtilsMock.Object);
+        _controller = new AuthController(_authServiceMock.Object, _jwtUtilsMock.Object, _activationServiceMock.Object, _passwordServiceMock.Object);
     }
     
-    [Test]
+    
+     [Test]
     public async Task Login_ReturnsOk_WithTokenAndAccount()
     {
         // Arrange
@@ -92,8 +93,7 @@ public class AuthControllerTest
         token.Should().Be("fake-jwt");
         account.Should().BeEquivalentTo(fakeAccount);
     }
-
-
+    
     // [Test]
     // public async Task Register_ReturnsOk_WhenSuccessful()
     // {
@@ -108,31 +108,26 @@ public class AuthControllerTest
     //     ((OkObjectResult)result).Value.Should().BeEquivalentTo(new { message = "Register successful" });
     // }
     
-   [Test]
+    [Test]
     public async Task RequestActive_ReturnsActiveCode()
     {
         var dto = new RequestActiveDTO { Email = "test@example.com", Password = "pass" };
-
-        _authServiceMock.Setup(x => x.GetActiveCode(dto.Email, dto.Password))
+        _activationServiceMock.Setup(x => x.GetActiveCode(dto.Email, dto.Password))
             .ReturnsAsync("ABC123");
 
         var result = await _controller.RequestActive(dto);
 
         result.Should().BeOfType<OkObjectResult>();
-        var okResult = result as OkObjectResult;
-        var json = JObject.FromObject(okResult!.Value!);
-
-        json["activeCode"]!.ToString().Should().Be("ABC123");
+        dynamic value = ((OkObjectResult)result).Value!;
+        ((string)value.activeCode).Should().Be("ABC123");
     }
-
-
     
     [Test]
     public async Task ActivateAccount_ReturnsOk_WhenSuccessful()
     {
         var dto = new ActiveAccountDTO { ActiveCode = "ABC123" };
 
-        _authServiceMock.Setup(x => x.ActivateAccount(dto.ActiveCode))
+        _activationServiceMock.Setup(x => x.ActivateAccount(dto.ActiveCode))
             .Returns(Task.CompletedTask);
 
         var result = await _controller.ActivateAccount(dto);
@@ -158,7 +153,7 @@ public class AuthControllerTest
             HttpContext = new DefaultHttpContext { User = claims }
         };
 
-        _authServiceMock.Setup(x => x.ChangePassword(userId, dto.OldPassword, dto.NewPassword))
+        _passwordServiceMock.Setup(x => x.ChangePassword(userId, dto.OldPassword, dto.NewPassword))
             .Returns(Task.CompletedTask);
 
         var result = await _controller.ChangePassword(dto);
@@ -172,19 +167,15 @@ public class AuthControllerTest
     {
         var dto = new RequestResetDTO { Email = "test@example.com" };
 
-        _authServiceMock.Setup(x => x.RequestForgotPassword(dto.Email))
+        _passwordServiceMock.Setup(x => x.RequestForgotPassword(dto.Email))
             .ReturnsAsync("RESET123");
 
         var result = await _controller.RequestForgotPassword(dto);
 
         result.Should().BeOfType<OkObjectResult>();
-        var okResult = result as OkObjectResult;
-        var json = JObject.FromObject(okResult!.Value!);
-
-        json["resetCode"]!.ToString().Should().Be("RESET123");
+        dynamic value = ((OkObjectResult)result).Value!;
+        ((string)value.resetCode).Should().Be("RESET123");
     }
-
-
     
     [Test]
     public async Task ResetPassword_ReturnsOk_WhenSuccessful()
@@ -196,7 +187,7 @@ public class AuthControllerTest
             ResetCode = "RESET123"
         };
 
-        _authServiceMock.Setup(x => x.ResetPassword(dto.NewPassword, dto.ConfirmPassword, dto.ResetCode))
+        _passwordServiceMock.Setup(x => x.ResetPassword(dto.NewPassword, dto.ConfirmPassword, dto.ResetCode))
             .Returns(Task.CompletedTask);
 
         var result = await _controller.ResetPassword(dto);

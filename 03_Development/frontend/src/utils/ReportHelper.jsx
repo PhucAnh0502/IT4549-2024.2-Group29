@@ -10,7 +10,7 @@ export const getAllReports = async () => {
       },
     });
     if (response) {
-      reports = response.data.$values;
+      reports = response.data;
     }
   } catch (err) {
     alert(err.response.data.message);

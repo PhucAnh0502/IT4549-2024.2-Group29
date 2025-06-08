@@ -54,7 +54,7 @@ const MemberSidebar = () => {
           <span className="text-lg">Equipments</span>
         </NavLink>
         <NavLink
-          to="/member-dashboard/feedback"
+          to="/member-dashboard/reports"
           className={({ isActive }) =>
             `${
               isActive ? "bg-red-400" : "hover:bg-red-600"

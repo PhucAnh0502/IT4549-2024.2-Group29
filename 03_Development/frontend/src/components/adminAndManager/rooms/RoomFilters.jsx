@@ -9,6 +9,7 @@ const RoomFilters = ({
   handleAddRoom,
 }) => {
   const department = localStorage.getItem("department");
+  const role = localStorage.getItem("accountRole")
 
   return (
     <div className="flex justify-between items-center flex-wrap gap-4 mb-6">
@@ -56,7 +57,7 @@ const RoomFilters = ({
           <option value="Multipurpose">Multipurpose</option>
         </select>
       </div>
-      {(department === null || department === "Equipment") && (
+      {(role === "Admin" || department === "Equipment") && (
         <button
           className="bg-red-500 text-white px-6 py-2 rounded-lg hover:bg-red-600 transition-all duration-300"
           onClick={handleAddRoom}

@@ -11,7 +11,7 @@ export const getAllRooms = async () => {
       },
     });
     if (response) {
-      rooms = response.data.$values;
+      rooms = response.data;
     }
   } catch (err) {
     alert(err.response.data.message);

@@ -98,8 +98,8 @@ const MemberEquipmentList = () => {
     { name: "Type", selector: (row) => row.type, sortable: true, wrap: true, width: "110px" },
     { name: "Manufacturer", selector: (row) => row.manufacturer, sortable: true, wrap: true, width: "160px" },
     { name: "Warranty", selector: (row) => row.warrantyPeriod, sortable: true, width: "100px" },
-    { name: "Rental Fee", selector: (row) => row.rentalFee, sortable: true, width: "160px" },
-    { name: "Status", selector: (row) => row.status, sortable: true, width: "90px" },
+    { name: "Rental Fee", selector: (row) => row.rentalFee, sortable: true, width: "120px" },
+    { name: "Status", selector: (row) => row.status, sortable: true, width: "150px" },
     { name: "Room", selector: (row) => row.room, sortable: true, wrap: true, width: "110px" },
     {
       name: "Action",

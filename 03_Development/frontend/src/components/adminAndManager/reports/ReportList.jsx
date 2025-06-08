@@ -63,7 +63,7 @@ const ReportList = () => {
                 <ReportButtons
                   id={report.id}
                   onReportRefresh={onReportRefresh}
-                  createdUserId={report.createdByUser.id}
+                  createdUserId={report.createdByUser ? report.createdByUser.id : null}
                 />
               ),
             };
