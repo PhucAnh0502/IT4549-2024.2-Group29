@@ -50,6 +50,7 @@ const CalendarSchedule = () => {
 
         // Transform API response into a schedule object
         const scheduleData = {};
+        console.log(response.data)
         response.data.forEach((item) => {
           const startDate = new Date(item.course.startDate);
           const endDate = new Date(item.course.endDate);
