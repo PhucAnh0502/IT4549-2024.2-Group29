@@ -1,6 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { FaEye, FaTrash } from "react-icons/fa";
 
 const EquipmentButtons = ({ id, onEquipmentDelete }) => {
   const navigate = useNavigate();
@@ -36,14 +37,14 @@ const EquipmentButtons = ({ id, onEquipmentDelete }) => {
         className="ml-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 transition-all duration-300 ease-in-out transform hover:scale-105"
         onClick={() => navigate(`/${role}-dashboard/equipments/${id}`)}
       >
-        View
+        <FaEye size={18} />
       </button>
       {role === "admin" && (
         <button
           className="mr-1 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition-all duration-300 ease-in-out transform hover:scale-105"
           onClick={() => handleDelete(id)}
         >
-          Delete
+          <FaTrash size={18}/>
         </button>
       )}
     </div>

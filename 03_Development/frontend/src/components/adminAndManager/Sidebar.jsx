@@ -83,7 +83,7 @@ const ManagerSidebar = () => {
           <FaDumbbell className="text-xl" />
           <span className="text-lg">Equipments</span>
         </NavLink>
-        {(department === "Support" || department === null) && (
+        {(department === "Support" || role === "admin") && (
           <NavLink
             to={`/${role}-dashboard/reports`}
             className={({ isActive }) =>

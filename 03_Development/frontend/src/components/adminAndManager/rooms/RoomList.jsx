@@ -36,7 +36,7 @@ const RoomList = () => {
           roomType: room.roomType,
           capacity: room.capacity,
           status: room.status,
-          numOfDevices: room.devices.$values.length,
+          numOfDevices: room.devices.length,
           action: <RoomButtons id={room.id} onRoomRefresh={onRoomRefresh} />,
         }));
         setRooms(data);

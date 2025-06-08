@@ -74,7 +74,7 @@ const EquipmentFilters = ({ filters, setFilters, equipmentType, navigate }) => {
           onChange={handleInputChange}
         />
       </div>
-      {(department === null || department === "Equipment") && (
+      {(role === "admin" || department === "Equipment") && (
         <button
           className="bg-red-500 text-white px-6 py-2 rounded-lg hover:bg-red-600 transition-all duration-300"
           onClick={() => navigate(`/${role}-dashboard/equipments/add-equipment`)}

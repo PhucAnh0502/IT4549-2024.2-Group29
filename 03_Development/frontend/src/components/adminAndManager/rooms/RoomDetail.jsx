@@ -42,7 +42,7 @@ const RoomDetail = () => {
     );
   if (!room) return null;
 
-  const devices = room.devices?.$values || [];
+  const devices = room.devices || [];
 
   return (
     <div className="p-6 max-w-4xl mx-auto">

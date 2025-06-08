@@ -10,8 +10,8 @@ export const getAllTrainingRecords = async () => {
                 Authorization : `Bearer ${localStorage.getItem('token')}`
             }
         })
-        if(response.data.$values) {
-            records = response.data.$values
+        if(response.data) {
+            records = response.data
         }
     } catch (err) {
         records = []

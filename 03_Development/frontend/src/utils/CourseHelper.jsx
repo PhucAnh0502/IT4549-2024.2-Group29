@@ -11,7 +11,7 @@ export const getAllCourses = async () => {
       },
     });
     if (response) {
-      courses = response.data.$values;
+      courses = response.data;
     }
   } catch (err) {
     alert(err.response.data.message);
@@ -28,7 +28,7 @@ export const getRegisteredCourses = async () => {
       },
     });
     if (response) {
-      registeredCourses = response.data.$values;
+      registeredCourses = response.data;
     }
   } catch (err) {
     alert(err.response.data.message);
