@@ -42,7 +42,7 @@ const AddEquipment = () => {
         }
       );
       if (response) {
-        setEquipmentTypes(response.data.$values);
+        setEquipmentTypes(response.data);
       }
     } catch (err) {
       alert(err.response.data.Message || "Cannot get equipment type");
@@ -60,7 +60,7 @@ const AddEquipment = () => {
         }
       );
       if (response) {
-        setRoomCodes(response.data.$values);
+        setRoomCodes(response.data);
       }
     } catch (err) {
       alert(err.response.data.Message || "Cannot get room code");
