@@ -46,7 +46,7 @@ const FeedbackList = () => {
       });
       
       if (response.data) {
-        const feedbacksData = response.data.$values || [];
+        const feedbacksData = response.data || [];
         const formattedFeedbacks = feedbacksData.map((feedback, index) => ({
           id: feedback.id,
           sno: index + 1,

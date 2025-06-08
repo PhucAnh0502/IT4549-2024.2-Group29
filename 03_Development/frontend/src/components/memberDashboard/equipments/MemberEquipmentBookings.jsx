@@ -33,7 +33,7 @@ const MemberEquipmentBookings = () => {
       const response = await getBookingbyUserId(userId);
       
       if (response) {
-        const bookingsData = response.$values || [];
+        const bookingsData = response || [];
         const formattedBookings = await Promise.all(bookingsData.map(async (booking, index) => {
           const equipment = await getEquipmentById(booking.deviceId);
           return {

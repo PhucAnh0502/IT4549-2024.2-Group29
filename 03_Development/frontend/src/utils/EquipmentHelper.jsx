@@ -11,7 +11,7 @@ export const getAllEquipments = async () => {
       },
     });
     if (response) {
-      equipments = response.data.$values;
+      equipments = response.data;
     }
   } catch (err) {
     alert(err.response.data.message);

@@ -30,7 +30,7 @@ export const getAllAccounts = async () => {
       },
     });
     if (response) {
-      accounts = response.data.$values;
+      accounts = response.data;
     }
   } catch (err) {
     alert(err.response.data.message);
@@ -47,7 +47,7 @@ export const getAllUsers = async () => {
       },
     });
     if (response) {
-      users = response.data.$values;
+      users = response.data;
     }
   } catch (err) {
     alert(err.response.data.message);
