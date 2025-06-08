@@ -17,6 +17,7 @@
     "date-fns": "^4.1.0",
     "dotenv": "^16.4.7",
     "framer-motion": "^12.6.2",
+    "lucide-react": "^0.513.0",
     "postcss": "^8.5.3",
     "react": "^19.0.0",
     "react-data-table-component": "^7.7.0",

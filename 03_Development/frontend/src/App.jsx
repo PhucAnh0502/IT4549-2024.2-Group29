@@ -35,6 +35,10 @@ import MemberEquipmentBookings from "./components/memberDashboard/equipments/Mem
 import FeedbackList from "./components/memberDashboard/feedback/FeedbackList";
 import FeedbackDetail from "./components/memberDashboard/feedback/FeedbackDetail";
 import AddFeedback from "./components/memberDashboard/feedback/AddFeedback";
+import TrainerDashboard from "./pages/TrainerDashboard";
+import TrainerSummary from "./components/trainerDashboard/TrainerSummary";
+import TrainerCourseList from "./components/trainerDashboard/courses/TrainerCourseList";
+import CreateCourse from "./components/trainerDashboard/courses/CreateCourse";
 
 function App() {
   const [showLogin, setShowLogin] = useState(false);
@@ -283,6 +287,23 @@ function App() {
         </Route>
 
         {/* Trainer Dashboard */}
+        <Route
+          path="/trainer-dashboard"
+          element={
+            <RoleBaseRoutes allowedRoles={["Trainer"]}>
+              <TrainerDashboard />
+            </RoleBaseRoutes>
+          }
+        >
+          {/* Overview Dashboard */}
+          <Route index element={<TrainerSummary />} />
+
+          {/* Courses */}
+          <Route path="my-courses" element={<TrainerCourseList />} />
+
+          <Route path="my-courses/create" element={<CreateCourse />} /> 
+        </Route>
+
 
         {/* Member Dashboard */}
         <Route
