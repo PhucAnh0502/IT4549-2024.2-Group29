@@ -178,7 +178,27 @@ namespace Server.Controllers
 
             await _courseService.UnregisterFromCourseAsync(courseId, Guid.Parse(memberId));
             return Ok(new { message = "Course unregistered successfully" });
+        }
 
+        [HttpGet("trainer/course/{trainerId}")]
+        public async Task<IActionResult> GetRegisteredCoursesByTrainerId(Guid trainerId)
+        {
+            var id = User.FindFirst("userId")?.Value;
+            var role = User.FindFirst("role")?.Value;
+            var department = User.FindFirst("department")?.Value;
+            if (role == "Manager" && department != "Support")
+            {
+                return Forbid();
+            }
+            if (role == "Trainer")
+            {
+                if (id != trainerId.ToString())
+                {
+                    return Forbid();
+                }
+            }
+            var registeredCourses = await _courseService.GetRegisteredCoursesByTrainerIdAsync(trainerId);
+            return Ok(registeredCourses);
         }
     }
 }

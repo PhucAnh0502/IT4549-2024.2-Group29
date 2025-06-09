@@ -22,6 +22,7 @@ namespace Server.Interfaces.IServices
         Task<List<CourseModel>> GetCoursesAsync();
         Task<List<CourseModel>> GetCoursesByMemberIdAsync(Guid memberId);
         Task<List<RegisteredCourseModel>> GetRegisteredCoursesAsync(Guid memberId);
+        Task<List<RegisteredCourseModel>> GetRegisteredCoursesByTrainerIdAsync(Guid trainerId);
         Task<string> GetCourseTypeByIdAsync(Guid courseId);
         Task RegisterForCourseAsync(Guid courseId, Guid memberId);
         Task UnregisterFromCourseAsync(Guid courseId, Guid memberId);
