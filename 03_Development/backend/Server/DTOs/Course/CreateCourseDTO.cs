@@ -1,3 +1,5 @@
+using Server.Enums.Course;
+
 namespace Server.DTOs.Course
 {
     public class CreateCourseDTO
@@ -9,7 +11,7 @@ namespace Server.DTOs.Course
         public required TimeSpan StartTime { get; set; }
         public required TimeSpan EndTime { get; set; }
         public required float Price { get; set; }
-        public required Enum Type { get; set; } // CourseTypeCode
+        public required CourseTypeCode Type { get; set; } // CourseTypeCode
         public required string RoomName { get; set; } // Room name
         public required List<DayOfWeek> TrainingDays { get; set; }
     }
