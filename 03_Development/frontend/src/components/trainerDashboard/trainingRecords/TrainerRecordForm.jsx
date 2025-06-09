@@ -3,7 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import {
   createTrainingRecord,
   updateTrainingRecord,
-  getTrainingRecordById
+  getTrainingRecordById,
 } from "../../../utils/TrainingRecordHelper";
 import axios from "axios";
 
@@ -17,9 +17,9 @@ const TrainerRecordForm = ({ mode }) => {
     status: {
       Day1: { status: "", note: "" },
       Day2: { status: "", note: "" },
-      Day3: { status: "", note: "" }
+      Day3: { status: "", note: "" },
     },
-    progress: 0
+    progress: 0,
   });
 
   const [availableCourses, setAvailableCourses] = useState([]);
@@ -36,9 +36,9 @@ const TrainerRecordForm = ({ mode }) => {
               status: record.status || {
                 Day1: { status: "", note: "" },
                 Day2: { status: "", note: "" },
-                Day3: { status: "", note: "" }
+                Day3: { status: "", note: "" },
               },
-              progress: record.progress || 0
+              progress: record.progress || 0,
             });
           }
         } catch (error) {
@@ -48,19 +48,23 @@ const TrainerRecordForm = ({ mode }) => {
     }
   }, [id, isEdit]);
 
-  // Fetch trainer's registered courses (for create only)
+  // Fetch trainer's courses (for create only)
   useEffect(() => {
     if (!isEdit) {
       (async () => {
         try {
           const token = localStorage.getItem("token");
-          const url = `${import.meta.env.VITE_API_PATH}/Course/my-registered-courses`;
+          const payload = JSON.parse(atob(token.split(".")[1]));
+          const trainerId = payload.userId;
+
+          const url = `${import.meta.env.VITE_API_PATH}/Course/trainer/${trainerId}`;
           const res = await axios.get(url, {
-            headers: { Authorization: `Bearer ${token}` }
+            headers: { Authorization: `Bearer ${token}` },
           });
+
           setAvailableCourses(res.data || []);
         } catch (err) {
-          console.error("Failed to fetch registered courses:", err);
+          console.error("Failed to fetch trainer's courses:", err);
         }
       })();
     }
@@ -74,8 +78,8 @@ const TrainerRecordForm = ({ mode }) => {
         ...prev,
         status: {
           ...prev.status,
-          [day]: { ...prev.status[day], [field]: value }
-        }
+          [day]: { ...prev.status[day], [field]: value },
+        },
       }));
     } else {
       setFormData((prev) => ({ ...prev, [name]: value }));
@@ -88,14 +92,14 @@ const TrainerRecordForm = ({ mode }) => {
       if (isEdit) {
         await updateTrainingRecord(id, {
           status: formData.status,
-          progress: parseFloat(formData.progress)
+          progress: parseFloat(formData.progress),
         });
         alert("Training record updated.");
       } else {
         await createTrainingRecord({
           registeredCourseId: formData.registeredCourseId,
           status: formData.status,
-          progress: parseFloat(formData.progress)
+          progress: parseFloat(formData.progress),
         });
         alert("Training record created.");
       }
