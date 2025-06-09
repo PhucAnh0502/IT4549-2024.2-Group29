@@ -18,4 +18,17 @@ export const getAllReports = async () => {
   return reports;
 };
 
+export const getMyReports = async () => {
+  try {
+    const response = await axios.get(`${API_PATH}/Report/my-reports`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    });
+    return response.data;
+  } catch (err) {
+    console.error("GetMyReports Error:", err);
+    return [];
+  }
+};
 

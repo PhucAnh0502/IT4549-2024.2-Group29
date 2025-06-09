@@ -9,6 +9,8 @@ import {
 import { getAllCourses } from "../../utils/CourseHelper";
 import { getAllEquipments } from "../../utils/EquipmentHelper";
 import { useNavigate } from "react-router-dom";
+import CourseChart from "../charts/CourseChart";
+import EquipmentChart from "../charts/EquipmentChart";
 
 const TrainerSummary = () => {
   const [courses, setCourses] = useState(null);
@@ -22,11 +24,10 @@ const TrainerSummary = () => {
     const fetchData = async () => {
       setLoading(true);
       try {
-        const [fetchedCourses, fetchedEquipments] =
-          await Promise.all([
-            getAllCourses(),
-            getAllEquipments()
-          ]);
+        const [fetchedCourses, fetchedEquipments] = await Promise.all([
+          getAllCourses(),
+          getAllEquipments(),
+        ]);
         setCourses(fetchedCourses);
         setEquipments(fetchedEquipments);
       } catch (error) {
@@ -60,7 +61,7 @@ const TrainerSummary = () => {
             text="Courses"
             number={courses.length}
             color="bg-green-400"
-            handleClick={() => navigate(`/${role}-dashboard/courses`)}
+            handleClick={() => navigate(`/${role}-dashboard/my-courses`)}
           />
         )}
 
@@ -73,6 +74,12 @@ const TrainerSummary = () => {
             handleClick={() => navigate(`/${role}-dashboard/equipments`)}
           />
         )}
+      </div>
+      <div className="min-h-screen bg-gray-100 p-6">
+        <div className="max-w-6xl mx-auto flex flex-col sm:flex-row sm:gap-6 space-y-6 sm:space-y-0">
+          <CourseChart courses={courses} />
+          <EquipmentChart equipments={equipments} />
+        </div>
       </div>
     </div>
   );

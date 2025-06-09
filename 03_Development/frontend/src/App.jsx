@@ -39,6 +39,12 @@ import TrainerDashboard from "./pages/TrainerDashboard";
 import TrainerSummary from "./components/trainerDashboard/TrainerSummary";
 import TrainerCourseList from "./components/trainerDashboard/courses/TrainerCourseList";
 import CreateCourse from "./components/trainerDashboard/courses/CreateCourse";
+import EditCourse from "./components/trainerDashboard/courses/EditCourse";
+import TrainerRecordsList from "./components/trainerDashboard/trainingRecords/TrainerRecordsList";
+import TrainerRecordForm from "./components/trainerDashboard/trainingRecords/TrainerRecordForm";
+import TrainerRecordDetail from "./components/trainerDashboard/trainingRecords/TrainerRecordDetail";
+import TrainerReportsList from "./components/trainerDashboard/reports/TrainerReportsList";
+import TrainerReportDetail from "./components/trainerDashboard/reports/TrainerReportDetail";
 
 function App() {
   const [showLogin, setShowLogin] = useState(false);
@@ -300,8 +306,21 @@ function App() {
 
           {/* Courses */}
           <Route path="my-courses" element={<TrainerCourseList />} />
+          <Route path="create-course" element={<CreateCourse />} />
+          <Route path="courses/edit/:id" element={<EditCourse />} />
 
-          <Route path="my-courses/create" element={<CreateCourse />} /> 
+          {/* Training Records */}
+          <Route path="training-records" element={<TrainerRecordsList />} />
+          <Route path="training-records/create" element={<TrainerRecordForm mode="create" />} />
+          <Route path="training-records/edit/:id" element={<TrainerRecordForm mode="edit" />} />
+          <Route path="training-records/:id" element={<TrainerRecordDetail />} />
+
+          {/* Report */}
+           <Route path="reports" element={<TrainerReportsList />} />
+           <Route path="reports/:id" element={<TrainerReportDetail />} />
+
+
+
         </Route>
 
 
