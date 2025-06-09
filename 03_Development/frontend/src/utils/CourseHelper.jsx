@@ -71,3 +71,17 @@ export const createCourse = async (courseData) => {
   });
   return response.data;
 };
+
+export const updateCourse = async (courseId, updatedData) => {
+  try {
+    const response = await axios.put(`${API_PATH}/Course/${courseId}`, updatedData, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    });
+    return response.data;
+  } catch (err) {
+    alert(err.response?.data?.message || "Failed to update course");
+    throw err;
+  }
+};
