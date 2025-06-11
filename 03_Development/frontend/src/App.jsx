@@ -45,6 +45,8 @@ import TrainerRecordForm from "./components/trainerDashboard/trainingRecords/Tra
 import TrainerRecordDetail from "./components/trainerDashboard/trainingRecords/TrainerRecordDetail";
 import TrainerReportsList from "./components/trainerDashboard/reports/TrainerReportsList";
 import TrainerReportDetail from "./components/trainerDashboard/reports/TrainerReportDetail";
+import TrainerCreateReportForm from "./components/trainerDashboard/reports/TrainerCreateReportForm";
+import TrainerEditReportForm from "./components/trainerDashboard/reports/TrainerEditReportForm";
 
 function App() {
   const [showLogin, setShowLogin] = useState(false);
@@ -318,8 +320,8 @@ function App() {
           {/* Report */}
            <Route path="reports" element={<TrainerReportsList />} />
            <Route path="reports/:id" element={<TrainerReportDetail />} />
-
-
+           <Route path="reports/create" element={<TrainerCreateReportForm mode="create" />} />
+           <Route path="reports/edit/:id" element={<TrainerEditReportForm mode="edit" />} />
 
         </Route>
 
