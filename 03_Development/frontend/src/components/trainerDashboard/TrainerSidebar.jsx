@@ -2,18 +2,17 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import logo from "../../assets/logo-icon.png";
 import {
-  FaCalendarCheck,
-  FaCog,
-  FaTachometerAlt,
-  FaUsers,
+  FaBookOpen,
   FaChalkboardTeacher,
   FaClipboardList,
-  FaBookOpen,
-  FaUserGraduate,
+  FaTachometerAlt,
+  FaCog,
+  //FaBookOpen,
+  //FaUserGraduate,
 } from "react-icons/fa";
 
 const TrainerSidebar = () => {
-  const role = localStorage.getItem("accountRole").toLowerCase();
+  const role = localStorage.getItem("accountRole")?.toLowerCase();
 
   return (
     <div className="bg-gradient-to-b from-gray-800 to-gray-900 text-white h-screen fixed left-0 top-0 bottom-0 w-64 shadow-xl">
@@ -49,7 +48,7 @@ const TrainerSidebar = () => {
           <span className="text-lg">My Courses</span>
         </NavLink>
 
-        <NavLink
+        {/* <NavLink
           to={`/${role}-dashboard/schedule`}
           className={({ isActive }) =>
             `${
@@ -83,7 +82,7 @@ const TrainerSidebar = () => {
         >
           <FaClipboardList className="text-xl" />
           <span className="text-lg">Attendance</span>
-        </NavLink>
+        </NavLink> */}
 
         <NavLink
           to={`/${role}-dashboard/training-records`}
@@ -98,19 +97,18 @@ const TrainerSidebar = () => {
         </NavLink>
 
         <NavLink
-          to={`/${role}-dashboard/assessments`}
+          to={`/${role}-dashboard/reports`}
           className={({ isActive }) =>
             `${
               isActive ? "bg-red-400" : "hover:bg-red-600"
             } flex items-center space-x-4 block py-3 px-6 rounded-lg transition-colors duration-300`
           }
         >
-          <FaUsers className="text-xl" />
-          <span className="text-lg">Assessments</span>
+          <FaClipboardList className="text-xl" />
+          <span className="text-lg">Reports</span>
         </NavLink>
-
         <NavLink
-          to={`/${role}-dashboard/settings`}
+          to="/trainer-dashboard/setting"
           className={({ isActive }) =>
             `${
               isActive ? "bg-red-400" : "hover:bg-red-600"
