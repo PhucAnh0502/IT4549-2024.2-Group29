@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { getTrainingRecordById } from "../../../utils/TrainingRecordHelper";
+import ProgressBar from "./ProgressBar";
 
 const TrainerRecordDetail = () => {
   const { id } = useParams();
@@ -41,19 +42,33 @@ const TrainerRecordDetail = () => {
   return (
     <div className="p-5 max-w-3xl mx-auto">
       <h2 className="text-2xl font-bold mb-4">Training Record Detail</h2>
-      <p><strong>ID:</strong> {record.id}</p>
-      <p><strong>Registered Course ID:</strong> {record.registeredCourseId}</p>
-      <p><strong>Progress:</strong> {record.progress}%</p>
+      <p>
+        <div className="P-2"><strong>Progress:</strong>{" "}</div>
+        <ProgressBar progress={record.progress} width={700} />
+      </p>
 
       <div className="mt-4">
         <h3 className="text-lg font-semibold">Training Days</h3>
-        <ul className="list-disc ml-5">
-          {Object.entries(record.status || {}).map(([day, detail]) => (
-            <li key={day}>
-              <strong>{day}</strong>: {detail.status} - {detail.note}
-            </li>
-          ))}
-        </ul>
+        <div className="overflow-x-auto">
+          <table className="min-w-full table-auto border border-gray-300 mt-2">
+            <thead className="bg-gray-100">
+              <tr>
+                <th className="border px-4 py-2 text-left">Day</th>
+                <th className="border px-4 py-2 text-left">Status</th>
+                <th className="border px-4 py-2 text-left">Note</th>
+              </tr>
+            </thead>
+            <tbody>
+              {Object.entries(record.status || {}).map(([day, detail]) => (
+                <tr key={day}>
+                  <td className="border px-4 py-2">{day}</td>
+                  <td className="border px-4 py-2">{detail.status}</td>
+                  <td className="border px-4 py-2">{detail.note}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
 
       <div className="flex gap-4 mt-6">
@@ -64,7 +79,9 @@ const TrainerRecordDetail = () => {
           Back to Dashboard
         </button>
         <button
-          onClick={() => navigate(`/trainer-dashboard/training-records/edit/${record.id}`)}
+          onClick={() =>
+            navigate(`/trainer-dashboard/training-records/edit/${record.id}`)
+          }
           className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
         >
           Edit Record

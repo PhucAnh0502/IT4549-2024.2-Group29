@@ -12,7 +12,7 @@ export const createTrainingRecord = async (data) => {
     });
     return response.data;
   } catch (err) {
-    console.error("Create failed:", err.response?.data?.message || err.message);
+    console.error("Create failed:", err.response?.data?.Message || err.message);
     throw err;
   }
 };
@@ -24,7 +24,7 @@ export const getTrainingRecordById = async (id) => {
     });
     return response.data;
   } catch (err) {
-    console.error("Get by ID failed:", err.response?.data?.message || err.message);
+    console.error("Get by ID failed:", err.response?.data?.Message || err.message);
     throw err;
   }
 };
@@ -36,7 +36,7 @@ export const updateTrainingRecord = async (id, data) => {
     });
     return response.data;
   } catch (err) {
-    console.error("Update failed:", err.response?.data?.message || err.message);
+    console.error("Update failed:", err.response?.data?.Message || err.message);
     throw err;
   }
 };
@@ -53,32 +53,15 @@ export const deleteTrainingRecord = async (id) => {
   }
 };
 
-export const getTrainingRecordsForTrainer = async () => {
+export const getTrainingRecordsForTrainer = async (trainerId) => {
   try {
-    const trainerId = localStorage.getItem("userId"); // 🔑 dùng đúng route backend hỗ trợ
-    const courseRes = await axios.get(`${API_PATH}/Course/trainer/${trainerId}`, {
+    const courseRes = await axios.get(`${API_PATH}/TrainingRecord/trainer/${trainerId}`, {
       headers: authHeader()
     });
 
     const registeredCourses = courseRes.data || [];
-    if (!Array.isArray(registeredCourses) || registeredCourses.length === 0) {
-      return [];
-    }
-
-    let allRecords = [];
-
-    for (const course of registeredCourses) {
-      try {
-        const res = await axios.get(`${API_PATH}/TrainingRecord/trainer/${course.id}`, {
-          headers: authHeader()
-        });
-        allRecords = [...allRecords, ...(res.data || [])];
-      } catch (err) {
-        console.warn(`⚠️ Failed to fetch records for course ${course.id}`, err.response?.data?.message || err.message);
-      }
-    }
-
-    return allRecords;
+    
+    return registeredCourses
   } catch (err) {
     console.error("Trainer fetch failed:", err.response?.data?.message || err.message);
     return [];

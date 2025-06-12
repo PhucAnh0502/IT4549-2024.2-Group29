@@ -61,7 +61,7 @@ const TrainerRecordForm = ({ mode }) => {
           const payload = JSON.parse(atob(token.split(".")[1]));
           const trainerId = payload.userId;
 
-          const url = `${import.meta.env.VITE_API_PATH}/Course/trainer/${trainerId}`;
+          const url = `${import.meta.env.VITE_API_PATH}/Course/trainer/course/${trainerId}`;
           const res = await axios.get(url, {
             headers: { Authorization: `Bearer ${token}` },
           });
@@ -192,6 +192,7 @@ const TrainerRecordForm = ({ mode }) => {
         alert("Training record updated successfully!");
       } else {
         // For create, send all data
+        console.log(submitData)
         await createTrainingRecord(submitData);
         alert("Training record created successfully!");
       }
@@ -238,7 +239,7 @@ const TrainerRecordForm = ({ mode }) => {
                   <option value="">-- Select a course --</option>
                   {availableCourses.map((course) => (
                     <option key={course.id} value={course.id}>
-                      {course.name || course.title || `Course ${course.id}`}
+                      {course.course.name || course.title || `Course ${course.id}`}
                     </option>
                   ))}
                 </select>

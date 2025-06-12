@@ -26,7 +26,7 @@ import ReportDetail from "./components/adminAndManager/reports/ReportDetail";
 import AddReport from "./components/adminAndManager/reports/AddReport";
 import TrainingRecordsList from "./components/adminAndManager/trainingRecords/TrainingRecordsList";
 import TrainingRecordDetail from "./components/adminAndManager/trainingRecords/TrainingRecordDetail";
-import ManagerDashboard from "./pages/ManagerDashboard"
+import ManagerDashboard from "./pages/ManagerDashboard";
 import MemberDashboard from "./pages/MemberDashboard";
 import MemberSummary from "./components/memberDashboard/MemberSummary";
 import MemberCourseList from "./components/memberDashboard/courses/MemberCourseList";
@@ -198,13 +198,16 @@ function App() {
         </Route>
 
         {/* Manager Dashboard */}
-        <Route path="/manager-dashboard" element={
-          <PrivateRoutes>
-            <RoleBaseRoutes allowedRoles={["Manager"]}>
-              <ManagerDashboard />
-            </RoleBaseRoutes>
-          </PrivateRoutes>
-        }>
+        <Route
+          path="/manager-dashboard"
+          element={
+            <PrivateRoutes>
+              <RoleBaseRoutes allowedRoles={["Manager"]}>
+                <ManagerDashboard />
+              </RoleBaseRoutes>
+            </PrivateRoutes>
+          }
+        >
           {/* Overview Dashboard */}
           <Route index element={<AdminSummary />}></Route>
 
@@ -313,18 +316,37 @@ function App() {
 
           {/* Training Records */}
           <Route path="training-records" element={<TrainerRecordsList />} />
-          <Route path="training-records/create" element={<TrainerRecordForm mode="create" />} />
-          <Route path="training-records/edit/:id" element={<TrainerRecordForm mode="edit" />} />
-          <Route path="training-records/:id" element={<TrainerRecordDetail />} />
+          <Route
+            path="training-records/create"
+            element={<TrainerRecordForm mode="create" />}
+          />
+          <Route
+            path="training-records/edit/:id"
+            element={<TrainerRecordForm mode="edit" />}
+          />
+          <Route
+            path="training-records/:id"
+            element={<TrainerRecordDetail />}
+          />
 
           {/* Report */}
-           <Route path="reports" element={<TrainerReportsList />} />
-           <Route path="reports/:id" element={<TrainerReportDetail />} />
-           <Route path="reports/create" element={<TrainerCreateReportForm mode="create" />} />
-           <Route path="reports/edit/:id" element={<TrainerEditReportForm mode="edit" />} />
+          <Route path="reports" element={<TrainerReportsList />} />
+          <Route path="reports/:id" element={<TrainerReportDetail />} />
+          <Route
+            path="reports/create"
+            element={<TrainerCreateReportForm mode="create" />}
+          />
+          <Route
+            path="reports/edit/:reportId"
+            element={<TrainerEditReportForm mode="edit" />}
+          />
 
+          {/* Settings */}
+          <Route
+            path="/trainer-dashboard/setting"
+            element={<SettingDashboard onClose={() => window.history.back()} />}
+          />
         </Route>
-
 
         {/* Member Dashboard */}
         <Route
@@ -336,7 +358,7 @@ function App() {
           }
         >
           {/* Overview Dashboard */}
-          <Route index element={<MemberSummary/>}></Route>
+          <Route index element={<MemberSummary />}></Route>
 
           {/* Courses */}
           <Route
@@ -347,12 +369,16 @@ function App() {
           {/* Equipment */}
           <Route
             path="/member-dashboard/equipments"
-            element={<MemberEquipmentList onClose={() => window.history.back()} />}
+            element={
+              <MemberEquipmentList onClose={() => window.history.back()} />
+            }
           />
 
           <Route
             path="/member-dashboard/equipments/bookings"
-            element={<MemberEquipmentBookings onClose={() => window.history.back()} />}
+            element={
+              <MemberEquipmentBookings onClose={() => window.history.back()} />
+            }
           />
 
           {/*Equipment Info*/}

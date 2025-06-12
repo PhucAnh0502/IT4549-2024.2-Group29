@@ -19,6 +19,7 @@ const TrainerReportDetail = () => {
         });
         setReport(res.data);
       } catch (err) {
+        console.log(err.response.data.Message)
         alert("You are not allowed to view this report.");
         navigate("/trainer-dashboard/reports");
       }

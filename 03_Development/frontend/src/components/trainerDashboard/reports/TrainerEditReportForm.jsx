@@ -140,7 +140,7 @@ const EditReportForm = () => {
         content: formData.content.trim()
       };
 
-      await axios.put(`${API_PATH}/Report`, updateData, {
+      await axios.put(`${API_PATH}/Report/update`, updateData, {
         headers: { 
           Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json'
@@ -148,7 +148,7 @@ const EditReportForm = () => {
       });
 
       alert("Report updated successfully!");
-      navigate("/trainer-dashboard/my-reports");
+      navigate("/trainer-dashboard/reports");
       
     } catch (error) {
       console.error("Error updating report:", error);
@@ -161,7 +161,7 @@ const EditReportForm = () => {
         alert("You don't have permission to edit this report.");
       } else if (error.response?.status === 404) {
         alert("Report not found.");
-        navigate("/trainer-dashboard/my-reports");
+        navigate("/trainer-dashboard/reports");
       } else if (error.response?.status === 400) {
         alert("Invalid data. Please check your input and try again.");
       } else {
@@ -179,10 +179,10 @@ const EditReportForm = () => {
 
     if (hasChanges) {
       if (window.confirm("You have unsaved changes. Are you sure you want to leave?")) {
-        navigate("/trainer-dashboard/my-reports");
+        navigate("/trainer-dashboard/reports");
       }
     } else {
-      navigate("/trainer-dashboard/my-reports");
+      navigate("/trainer-dashboard/reports");
     }
   };
 

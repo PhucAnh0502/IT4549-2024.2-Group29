@@ -5,7 +5,8 @@ import {
   FaBookOpen,
   FaChalkboardTeacher,
   FaClipboardList,
-  FaTachometerAlt
+  FaTachometerAlt,
+  FaCog,
   //FaBookOpen,
   //FaUserGraduate,
 } from "react-icons/fa";
@@ -105,6 +106,17 @@ const TrainerSidebar = () => {
         >
           <FaClipboardList className="text-xl" />
           <span className="text-lg">Reports</span>
+        </NavLink>
+        <NavLink
+          to="/trainer-dashboard/setting"
+          className={({ isActive }) =>
+            `${
+              isActive ? "bg-red-400" : "hover:bg-red-600"
+            } flex items-center space-x-4 block py-3 px-6 rounded-lg transition-colors duration-300`
+          }
+        >
+          <FaCog className="text-xl" />
+          <span className="text-lg">Settings</span>
         </NavLink>
       </div>
     </div>

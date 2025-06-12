@@ -206,9 +206,9 @@ const TrainerCourseList = () => {
                   <th className="px-6 py-4 text-left text-sm font-medium text-gray-500 uppercase tracking-wider">
                     Giá
                   </th>
-                  <th className="px-6 py-4 text-left text-sm font-medium text-gray-500 uppercase tracking-wider">
+                  {/* <th className="px-6 py-4 text-left text-sm font-medium text-gray-500 uppercase tracking-wider">
                     Học viên
-                  </th>
+                  </th> */}
                   <th className="px-6 py-4 text-left text-sm font-medium text-gray-500 uppercase tracking-wider">
                     Trạng thái
                   </th>
@@ -262,14 +262,14 @@ const TrainerCourseList = () => {
                           {formatCurrency(course.price)}
                         </div>
                       </td>
-                      <td className="px-6 py-4">
+                      {/* <td className="px-6 py-4">
                         <div className="flex items-center text-sm text-gray-900">
                           <Users className="text-gray-400 mr-1 text-xs" />
                           <span>
                             {course.enrolledStudents || 0}/{course.maxStudents || 0}
                           </span>
                         </div>
-                      </td>
+                      </td> */}
                       <td className="px-6 py-4">
                         <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getStatusColor(course.status)}`}>
                           {course.status || "N/A"}

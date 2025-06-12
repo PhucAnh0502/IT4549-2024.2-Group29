@@ -166,7 +166,7 @@ const CreateCourse = () => {
     } catch (error) {
       console.error("Create course error:", error);
       const errorMessage =
-        error?.response?.data?.message ||
+        error?.response?.data?.Message ||
         error?.response?.data?.errors?.[0] ||
         "Không thể tạo khóa học. Vui lòng thử lại.";
       alert(errorMessage);
