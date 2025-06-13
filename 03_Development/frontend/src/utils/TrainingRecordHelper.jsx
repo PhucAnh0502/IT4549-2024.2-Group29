@@ -85,4 +85,16 @@ export const getAllTrainingRecords = async () => {
     }
     return records
 }
+
+export const getTrainingRecordsForMember = async (userId) => {
+  try {
+    const response = await axios.get(`${API_PATH}/TrainingRecord/user-training-records/${userId}`, {
+      headers: authHeader()
+    });
+    return response.data;
+  } catch (err) {
+    console.error("Member fetch failed:", err.response?.data?.Message || err.message);
+    return [];
+  }
+}
   
