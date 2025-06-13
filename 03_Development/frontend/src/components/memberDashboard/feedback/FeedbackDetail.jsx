@@ -65,7 +65,7 @@ const FeedbackDetail = () => {
           },
         });
         alert(response.data.message);
-        navigate("/member-dashboard/feedback");
+        navigate("/member-dashboard/reports");
       } catch (err) {
         alert(err.response.data.message);
       }
