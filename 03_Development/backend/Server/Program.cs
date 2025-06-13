@@ -27,7 +27,14 @@ builder.Services.AddControllers()
         options.JsonSerializerOptions.WriteIndented = true;
     });
 builder.Services.AddDbContext<DatabaseContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"),
+        sqlServerOptionsAction: sqlOptions =>
+        {
+            sqlOptions.EnableRetryOnFailure(
+                maxRetryCount: 5, // Tùy chỉnh số lần thử lại tối đa nếu cần, ví dụ 5 lần
+                maxRetryDelay: TimeSpan.FromSeconds(30), // Tùy chỉnh độ trễ tối đa giữa các lần thử lại
+                errorNumbersToAdd: null); // Giữ null để sử dụng các mã lỗi tạm thời mặc định
+        }));
 
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IUserService, UserService>();
