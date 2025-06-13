@@ -46,7 +46,7 @@
       "sslPort": 44381,
       "environmentVariables": {
         "ASPNETCORE_HTTPS_PORT": "8081",
-        "ASPNETCORE_HTTP_PORT" : "8080"
+        "ASPNETCORE_HTTP_PORT" : "8089"
       } 
     }
   }
