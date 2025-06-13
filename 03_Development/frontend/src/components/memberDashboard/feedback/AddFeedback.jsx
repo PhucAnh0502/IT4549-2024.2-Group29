@@ -13,8 +13,8 @@ const AddFeedback = () => {
   const API_PATH = import.meta.env.VITE_API_PATH;
   const role = localStorage.getItem('accountRole').toLowerCase()
 
-  const handleSubmit = async () => {
-    console.log(report)
+  const handleSubmit = async (e) => {
+    e.preventDefault()
     try {
       const response = await axios.post(
         `${API_PATH}/Report/create`,
