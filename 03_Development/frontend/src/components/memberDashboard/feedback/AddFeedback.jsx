@@ -38,13 +38,13 @@ const AddFeedback = () => {
     >
       <div className="flex items-center justify-between mb-6 relative">
         <button
-          onClick={() => navigate(`/${role}-dashboard/feedback`)}
+          onClick={() => navigate(`/${role}-dashboard/reports`)}
           className="text-blue-600 hover:text-blue-800 text-sm font-medium flex items-center gap-2"
         >
           <span className="text-lg">←</span> Back
         </button>
         <div className="w-full text-center">
-          <h2 className="text-3xl font-bold text-red-600">Add New Report</h2>
+          <h2 className="text-3xl font-bold text-red-600">Add New Feedback</h2>
         </div>
       </div>
 

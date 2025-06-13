@@ -47,6 +47,7 @@ import TrainerReportsList from "./components/trainerDashboard/reports/TrainerRep
 import TrainerReportDetail from "./components/trainerDashboard/reports/TrainerReportDetail";
 import TrainerCreateReportForm from "./components/trainerDashboard/reports/TrainerCreateReportForm";
 import TrainerEditReportForm from "./components/trainerDashboard/reports/TrainerEditReportForm";
+import MemberTrainingRecordsList from "./components/memberDashboard/training_records/MemberRecordsList";
 
 function App() {
   const [showLogin, setShowLogin] = useState(false);
@@ -403,6 +404,12 @@ function App() {
           <Route
             path="/member-dashboard/feedback/:feedbackId"
             element={<FeedbackDetail onClose={() => window.history.back()} />}
+          />
+
+          {/*Training Records*/}
+          <Route
+            path = "/member-dashboard/training-records"
+            element={<MemberTrainingRecordsList onClose={() => window.history.back()} />}
           />
 
           {/*Room Info*/}

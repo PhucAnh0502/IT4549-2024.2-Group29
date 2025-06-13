@@ -6,7 +6,8 @@ import {
   FaCog,
   FaDumbbell,
   FaTachometerAlt,
-  FaComments
+  FaComments,
+  FaFileAlt
 } from "react-icons/fa";
 
 const MemberSidebar = () => {
@@ -41,6 +42,17 @@ const MemberSidebar = () => {
         >
           <FaCalendarCheck className="text-xl" />
           <span className="text-lg">Courses</span>
+        </NavLink>
+        <NavLink
+          to="/member-dashboard/training-records"
+          className={({ isActive }) =>
+            `${
+              isActive ? "bg-red-400" : "hover:bg-red-600"
+            } flex items-center space-x-4 block py-3 px-6 rounded-lg transition-colors duration-300`
+          }
+        >
+          <FaFileAlt className="text-xl" />
+          <span className="text-lg">Training Records</span>
         </NavLink>
         <NavLink
           to="/member-dashboard/equipments"
