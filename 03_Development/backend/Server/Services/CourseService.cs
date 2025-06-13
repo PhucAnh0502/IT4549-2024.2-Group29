@@ -231,6 +231,20 @@ namespace Server.Services
             return member;
         }
 
+        public async Task<List<RegisteredCourseModel>> GetRegisteredCoursesByTrainerIdAsync(Guid trainerId)
+        {
+            var registeredCourses = await _context.RegisteredCourses
+                .Include(rc => rc.Course)
+                .ThenInclude(c => c.Room)
+                .Include(rc => rc.Course)
+                .ThenInclude(c => c.Trainer)
+                .Where(rc => rc.Course.TrainerId == trainerId)
+                .ToListAsync() ?? throw new CourseException(
+                    CourseErrorCode.RegisteredCourseNotFound,
+                    $"No registered courses found for trainer with ID {trainerId}.");
+            return registeredCourses;
+        }
+
         public async Task<List<RegisteredCourseModel>> GetRegisteredCoursesAsync(Guid memberId)
         {
             var registeredCourses = await _context.RegisteredCourses

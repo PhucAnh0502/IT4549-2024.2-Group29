@@ -26,7 +26,7 @@ import ReportDetail from "./components/adminAndManager/reports/ReportDetail";
 import AddReport from "./components/adminAndManager/reports/AddReport";
 import TrainingRecordsList from "./components/adminAndManager/trainingRecords/TrainingRecordsList";
 import TrainingRecordDetail from "./components/adminAndManager/trainingRecords/TrainingRecordDetail";
-import ManagerDashboard from "./pages/ManagerDashboard"
+import ManagerDashboard from "./pages/ManagerDashboard";
 import MemberDashboard from "./pages/MemberDashboard";
 import MemberSummary from "./components/memberDashboard/MemberSummary";
 import MemberCourseList from "./components/memberDashboard/courses/MemberCourseList";
@@ -35,6 +35,19 @@ import MemberEquipmentBookings from "./components/memberDashboard/equipments/Mem
 import FeedbackList from "./components/memberDashboard/feedback/FeedbackList";
 import FeedbackDetail from "./components/memberDashboard/feedback/FeedbackDetail";
 import AddFeedback from "./components/memberDashboard/feedback/AddFeedback";
+import TrainerDashboard from "./pages/TrainerDashboard";
+import TrainerSummary from "./components/trainerDashboard/TrainerSummary";
+import TrainerCourseList from "./components/trainerDashboard/courses/TrainerCourseList";
+import CreateCourse from "./components/trainerDashboard/courses/CreateCourse";
+import EditCourse from "./components/trainerDashboard/courses/EditCourse";
+import TrainerRecordsList from "./components/trainerDashboard/trainingRecords/TrainerRecordsList";
+import TrainerRecordForm from "./components/trainerDashboard/trainingRecords/TrainerRecordForm";
+import TrainerRecordDetail from "./components/trainerDashboard/trainingRecords/TrainerRecordDetail";
+import TrainerReportsList from "./components/trainerDashboard/reports/TrainerReportsList";
+import TrainerReportDetail from "./components/trainerDashboard/reports/TrainerReportDetail";
+import TrainerCreateReportForm from "./components/trainerDashboard/reports/TrainerCreateReportForm";
+import TrainerEditReportForm from "./components/trainerDashboard/reports/TrainerEditReportForm";
+import MemberTrainingRecordsList from "./components/memberDashboard/training_records/MemberRecordsList";
 
 function App() {
   const [showLogin, setShowLogin] = useState(false);
@@ -186,13 +199,16 @@ function App() {
         </Route>
 
         {/* Manager Dashboard */}
-        <Route path="/manager-dashboard" element={
-          <PrivateRoutes>
-            <RoleBaseRoutes allowedRoles={["Manager"]}>
-              <ManagerDashboard />
-            </RoleBaseRoutes>
-          </PrivateRoutes>
-        }>
+        <Route
+          path="/manager-dashboard"
+          element={
+            <PrivateRoutes>
+              <RoleBaseRoutes allowedRoles={["Manager"]}>
+                <ManagerDashboard />
+              </RoleBaseRoutes>
+            </PrivateRoutes>
+          }
+        >
           {/* Overview Dashboard */}
           <Route index element={<AdminSummary />}></Route>
 
@@ -283,6 +299,55 @@ function App() {
         </Route>
 
         {/* Trainer Dashboard */}
+        <Route
+          path="/trainer-dashboard"
+          element={
+            <RoleBaseRoutes allowedRoles={["Trainer"]}>
+              <TrainerDashboard />
+            </RoleBaseRoutes>
+          }
+        >
+          {/* Overview Dashboard */}
+          <Route index element={<TrainerSummary />} />
+
+          {/* Courses */}
+          <Route path="my-courses" element={<TrainerCourseList />} />
+          <Route path="create-course" element={<CreateCourse />} />
+          <Route path="courses/edit/:id" element={<EditCourse />} />
+
+          {/* Training Records */}
+          <Route path="training-records" element={<TrainerRecordsList />} />
+          <Route
+            path="training-records/create"
+            element={<TrainerRecordForm mode="create" />}
+          />
+          <Route
+            path="training-records/edit/:id"
+            element={<TrainerRecordForm mode="edit" />}
+          />
+          <Route
+            path="training-records/:id"
+            element={<TrainerRecordDetail />}
+          />
+
+          {/* Report */}
+          <Route path="reports" element={<TrainerReportsList />} />
+          <Route path="reports/:id" element={<TrainerReportDetail />} />
+          <Route
+            path="reports/create"
+            element={<TrainerCreateReportForm mode="create" />}
+          />
+          <Route
+            path="reports/edit/:reportId"
+            element={<TrainerEditReportForm mode="edit" />}
+          />
+
+          {/* Settings */}
+          <Route
+            path="/trainer-dashboard/setting"
+            element={<SettingDashboard onClose={() => window.history.back()} />}
+          />
+        </Route>
 
         {/* Member Dashboard */}
         <Route
@@ -294,7 +359,7 @@ function App() {
           }
         >
           {/* Overview Dashboard */}
-          <Route index element={<MemberSummary/>}></Route>
+          <Route index element={<MemberSummary />}></Route>
 
           {/* Courses */}
           <Route
@@ -305,12 +370,16 @@ function App() {
           {/* Equipment */}
           <Route
             path="/member-dashboard/equipments"
-            element={<MemberEquipmentList onClose={() => window.history.back()} />}
+            element={
+              <MemberEquipmentList onClose={() => window.history.back()} />
+            }
           />
 
           <Route
             path="/member-dashboard/equipments/bookings"
-            element={<MemberEquipmentBookings onClose={() => window.history.back()} />}
+            element={
+              <MemberEquipmentBookings onClose={() => window.history.back()} />
+            }
           />
 
           {/*Equipment Info*/}
@@ -335,6 +404,12 @@ function App() {
           <Route
             path="/member-dashboard/feedback/:feedbackId"
             element={<FeedbackDetail onClose={() => window.history.back()} />}
+          />
+
+          {/*Training Records*/}
+          <Route
+            path = "/member-dashboard/training-records"
+            element={<MemberTrainingRecordsList onClose={() => window.history.back()} />}
           />
 
           {/*Room Info*/}
