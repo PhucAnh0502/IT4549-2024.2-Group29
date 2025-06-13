@@ -158,7 +158,7 @@ app.UseSwaggerUI();
 app.UseMiddleware<ExceptionHandlerMiddleware>();
 
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 
 app.UseCors("AllowAllOrigins");
 
