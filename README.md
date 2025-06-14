@@ -11,3 +11,6 @@ Danh sách các thành viên trong Nhóm 29 bao gồm 5 thành viên:
 3. **Nguyễn Phúc Anh** - Mã số sinh viên: 20225784   
 4. **Lê Đồng Cảnh Phú** - Mã số sinh viên: 20225755 
 5. **Lê Thị Ngọc Thảo** - Mã số sinh viên: 20225673  
+
+## Link Deploy
+🔗 [Truy cập website tại đây](http://scic.navistar.io)
